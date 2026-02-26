@@ -536,6 +536,15 @@ function salvarDados() {
 
 /* ================= MÓDULOS ================= */
 function abrirModulo(nome) {
+  const n = String(nome || "").trim().toLowerCase();
+
+  // >>> LEGISLATIVO: manda para a página do Legislativo (nova)
+  if (n === "legislativo" || n.includes("legisl")) {
+    window.location.href = "legislativo/index.html";
+    return;
+  }
+
+  // (o resto do seu código atual continua aqui embaixo)
   document.getElementById("modalTitulo").innerText = nome;
 
   const formulario = `
