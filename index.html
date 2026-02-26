@@ -538,13 +538,13 @@ function salvarDados() {
 function abrirModulo(nome) {
   const n = String(nome || "").trim().toLowerCase();
 
-  // >>> LEGISLATIVO: manda para a página do Legislativo (nova)
+  // LEGISLATIVO: abre a página do Legislativo (onde ficará o botão do transcritor)
   if (n === "legislativo" || n.includes("legisl")) {
     window.location.href = "legislativo/index.html";
     return;
   }
 
-  // (o resto do seu código atual continua aqui embaixo)
+  // Padrão: abre o formulário dentro do modal (como já era)
   document.getElementById("modalTitulo").innerText = nome;
 
   const formulario = `
