@@ -5,249 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Flora Inajaense — Instituto Popular Semiárido</title>
-<base href="/rancho-semiaridas/">
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#2e7d32">
-<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="icon" href="./assets/icons/icon-192.png">
 
 <style>
-/* ====== BASE ====== */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  transition: background 0.3s, color 0.3s;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f2f2;
+  transition:background .3s,color .3s;
 }
 
-/* ================= CABEÇALHO PERFIL ================= */
-.header {
-  background: #2e7d32;
-  color: white;
-  padding: 12px 15px;
-  display: flex;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+/* CABEÇALHO PERFIL */
+.header{
+  background:#2e7d32;
+  color:#fff;
+  padding:12px 15px;
+  display:flex;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10000;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+}
+.foto-container{margin-right:12px;text-align:center}
+.foto-container img{
+  width:60px;height:60px;border-radius:50%;
+  object-fit:cover;border:3px solid #fff;cursor:pointer;
+}
+.info-usuario{
+  flex:1;font-size:12px;line-height:1.4;
+  padding-right:8px;overflow:hidden;
+}
+.info-usuario b{
+  font-size:14px;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.btn-dados{
+  background:#fff;color:#2e7d32;border:none;border-radius:10px;
+  padding:8px 12px;font-size:12px;cursor:pointer;margin-left:6px;
 }
 
-.foto-container {
-  margin-right: 12px;
-  text-align: center;
+/* HOME */
+:root{ --header-h: 78px; }
+
+.home-header{
+  position:sticky;
+  top:var(--header-h);
+  z-index:9;
+  background:linear-gradient(135deg,#2f6b3f,#3d8b52);
+  color:#fff;
+  padding:1.5rem 1rem;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.25);
+}
+.home-header h1{margin:0;font-size:1.2rem}
+.saudacao{margin-top:.8rem;font-size:1rem;font-weight:700}
+
+/* GRID */
+.modules{
+  max-width:900px;margin:2rem auto;
+  padding:0 1rem 3rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+  gap:1rem;
+}
+.module-card{
+  background:#fff;border-radius:22px;
+  aspect-ratio:1/1;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  padding:12px;
+}
+.module-card:hover{transform:scale(1.05);box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.module-icon{
+  width:48px;height:48px;
+  background:#e0f2e9;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:8px;font-size:22px;color:#2e7d32;
+}
+.module-card h3{margin:4px 0 2px;font-size:.75rem;color:#2e7d32}
+.module-card span{font-size:.65rem;color:#555;line-height:1.2}
+
+/* MODAIS */
+.modal{
+  display:none;position:fixed;top:0;left:0;
+  width:100vw;height:100vh;background:#fff;
+  z-index:9999;flex-direction:column;
+  animation:slideUp .3s ease-out;
+}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-topo{
+  background:#2e7d32;color:#fff;
+  padding:12px;display:flex;
+  justify-content:space-between;align-items:center;
+}
+iframe{width:100%;height:100%;border:none}
+
+/* FORM */
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:12px;margin-bottom:4px}
+.form-group input,.form-group textarea{
+  width:100%;padding:8px;border-radius:6px;border:1px solid #ccc;
+}
+.btn-salvar{
+  background:#2e7d32;color:#fff;border:none;
+  border-radius:10px;padding:12px;width:100%;
+  cursor:pointer;margin-top:15px;
 }
 
-.foto-container img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid white;
-  cursor: pointer;
-}
-
-.info-usuario {
-  flex: 1;
-  font-size: 12px;
-  line-height: 1.4;
-  padding-right: 8px;
-  overflow: hidden;
-}
-
-.info-usuario b {
-  font-size: 14px;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.btn-dados {
-  background: white;
-  color: #2e7d32;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-size: 12px;
-  cursor: pointer;
-  margin-left: 6px;
-}
-
-/* ================= HOME ================= */
-.home-header {
-  position: sticky;
-  top: 78px;
-  z-index: 9;
-  background: linear-gradient(135deg, #2f6b3f, #3d8b52);
-  color: white;
-  padding: 1.5rem 1rem;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-}
-
-.home-header h1 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.saudacao {
-  margin-top: 0.8rem;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-/* ================= GRID ÍCONES ================= */
-.modules {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 1rem;
-}
-
-.module-card {
-  background: white;
-  border-radius: 22px;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  padding: 12px;
-}
-
-.module-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-}
-
-.module-icon {
-  width: 48px;
-  height: 48px;
-  background: #e0f2e9;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-  font-size: 22px;
-  color: #2e7d32;
-}
-
-.module-card h3 {
-  margin: 4px 0 2px;
-  font-size: 0.75rem;
-  color: #2e7d32;
-}
-
-.module-card span {
-  font-size: 0.65rem;
-  color: #555;
-  line-height: 1.2;
-}
-
-/* ================= MODAIS ================= */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #ffffff;
-  z-index: 9999;
-  flex-direction: column;
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-topo {
-  background: #2e7d32;
-  color: #fff;
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* ================= FORM ================= */
-.form-group {
-  margin-bottom: 12px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.btn-salvar {
-  background: #2e7d32;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 12px;
-  width: 100%;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-/* ================= DARK MODE ================= */
-body.dark {
-  background: #121212;
-  color: #eee;
-}
-
-body.dark .header,
-body.dark .home-header {
-  background: linear-gradient(135deg, #0f3d26, #1b5e20);
-}
-
-body.dark .module-card {
-  background: #1e1e1e;
-}
-
-body.dark .module-card span {
-  color: #aaa;
-}
-
-body.dark .modal {
-  background: #121212;
-}
+/* DARK */
+body.dark{background:#121212;color:#eee}
+body.dark .header, body.dark .home-header{background:linear-gradient(135deg,#0f3d26,#1b5e20)}
+body.dark .module-card{background:#1e1e1e}
+body.dark .module-card span{color:#aaa}
+body.dark .modal{background:#121212}
 </style>
 </head>
 
 <body>
 
-<!-- ================= PERFIL TOPO ================= -->
 <div class="header">
   <div class="foto-container">
     <input type="file" id="fotoInput" accept="image/*" capture="camera" style="display:none" />
-    <img id="fotoPerfil" src="placeholder.png" alt="Foto" onclick="trocarFoto()" />
+    <img id="fotoPerfil" src="./placeholder.png" alt="Foto" onclick="trocarFoto()" />
     <div style="font-size:10px;">Tocar para foto</div>
   </div>
 
@@ -262,9 +149,7 @@ body.dark .modal {
   <button class="btn-dados" onclick="abrirDados()">Dados</button>
 </div>
 
-<!-- ================= HOME ================= -->
 <div id="homeScreen">
-
   <div class="home-header">
     <h1>Rancho de Pesquisas Populares do Semiárido</h1>
     <p id="dadosPesquisador"></p>
@@ -272,104 +157,32 @@ body.dark .modal {
   </div>
 
   <div class="modules">
+    <div class="module-card" onclick="abrirModulo('Herbário')"><h3>Herbário</h3><span>Flora & Exsicatas</span></div>
+    <div class="module-card" onclick="abrirModulo('Rios, Riachos e Lagoas')"><h3>Rios & Lagoas</h3><span>Corpos d’água</span></div>
+    <div class="module-card" onclick="abrirModulo('Aves')"><h3>Aves</h3><span>Observações</span></div>
+    <div class="module-card" onclick="abrirModulo('Fauna')"><h3>Fauna</h3><span>Animais</span></div>
+    <div class="module-card" onclick="abrirModulo('Geologia')"><h3>Geologia</h3><span>Rochas & Solos</span></div>
+    <div class="module-card" onclick="abrirModulo('Artefatos')"><h3>Artefatos</h3><span>Cultura Material</span></div>
+    <div class="module-card" onclick="abrirModulo('Aspectos Humanos')"><h3>Aspectos Humanos</h3><span>Vida Social</span></div>
+    <div class="module-card" onclick="abrirModulo('Aspectos Geográficos')"><h3>Aspectos Geográficos</h3><span>Território</span></div>
+    <div class="module-card" onclick="abrirModulo('Cultura')"><h3>Cultura</h3><span>Saberes</span></div>
+    <div class="module-card" onclick="abrirModulo('Povos Originários')"><h3>Povos Originários</h3><span>Memória</span></div>
+    <div class="module-card" onclick="abrirModulo('Quilombolas')"><h3>Quilombolas</h3><span>Comunidades</span></div>
 
-    <!-- MÓDULOS -->
-    <div class="module-card" onclick="abrirModulo('Herbário')">
-      <h3>Herbário</h3>
-      <span>Flora & Exsicatas</span>
-    </div>
+    <div class="module-card" onclick="abrirModulo('Legislativo')"><h3>Legislativo</h3><span>Leis</span></div>
 
-    <div class="module-card" onclick="abrirModulo('Rios, Riachos e Lagoas')">
-      <h3>Rios & Lagoas</h3>
-      <span>Corpos d’água</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Aves')">
-      <h3>Aves</h3>
-      <span>Observações</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Fauna')">
-      <h3>Fauna</h3>
-      <span>Animais</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Geologia')">
-      <h3>Geologia</h3>
-      <span>Rochas & Solos</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Artefatos')">
-      <h3>Artefatos</h3>
-      <span>Cultura Material</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Aspectos Humanos')">
-      <h3>Aspectos Humanos</h3>
-      <span>Vida Social</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Aspectos Geográficos')">
-      <h3>Aspectos Geográficos</h3>
-      <span>Território</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Cultura')">
-      <h3>Cultura</h3>
-      <span>Saberes</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Povos Originários')">
-      <h3>Povos Originários</h3>
-      <span>Memória</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Quilombolas')">
-      <h3>Quilombolas</h3>
-      <span>Comunidades</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Legislativo')">
-      <h3>Legislativo</h3>
-      <span>Leis</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Executivo')">
-      <h3>Executivo</h3>
-      <span>Gestão</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Judiciário')">
-      <h3>Judiciário</h3>
-      <span>Justiça</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Estatísticas')">
-      <h3>Estatísticas</h3>
-      <span>Indicadores</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('IBGE')">
-      <h3>IBGE</h3>
-      <span>Base Oficial</span>
-    </div>
-
-    <div class="module-card" onclick="abrirModulo('Registrar Algo')">
-      <h3>Registrar Algo</h3>
-      <span>Novo Registro</span>
-    </div>
-
+    <div class="module-card" onclick="abrirModulo('Executivo')"><h3>Executivo</h3><span>Gestão</span></div>
+    <div class="module-card" onclick="abrirModulo('Judiciário')"><h3>Judiciário</h3><span>Justiça</span></div>
+    <div class="module-card" onclick="abrirModulo('Estatísticas')"><h3>Estatísticas</h3><span>Indicadores</span></div>
+    <div class="module-card" onclick="abrirModulo('IBGE')"><h3>IBGE</h3><span>Base Oficial</span></div>
+    <div class="module-card" onclick="abrirModulo('Registrar Algo')"><h3>Registrar Algo</h3><span>Novo Registro</span></div>
   </div>
 
   <div class="admin-btn">
-    <button class="btn-salvar" onclick="localStorage.clear(); location.reload();">
-      RESET ADMINISTRATIVO
-    </button>
+    <button class="btn-salvar" onclick="localStorage.clear(); location.reload();">RESET ADMINISTRATIVO</button>
   </div>
-
 </div>
 
-<!-- ================= MODAIS ================= -->
 <div id="modalIframe" class="modal">
   <div class="modal-topo">
     <span id="modalTitulo">Tela</span>
@@ -384,48 +197,23 @@ body.dark .modal {
     <button onclick="fecharDados()">✖</button>
   </div>
 
-  <div class="modal-conteudo">
+  <div class="modal-conteudo" style="padding:12px;">
     <h3>Cadastro Popular — Pesquisador do Semiárido</h3>
 
-    <div class="form-group">
-      <label>Nome Completo</label>
-      <input id="nome" />
-    </div>
-
-    <div class="form-group">
-      <label>Nome Social</label>
-      <input id="nomeSocial" />
-    </div>
-
-    <div class="form-group">
-      <label>Área de Pesquisa</label>
-      <input id="pesquisa" />
-    </div>
-
-    <div class="form-group">
-      <label>Profissão</label>
-      <input id="profissao" />
-    </div>
-
-    <div class="form-group">
-      <label>Especialidade</label>
-      <input id="especialidade" />
-    </div>
-
-    <div class="form-group">
-      <label>Moradia</label>
-      <input id="moradia" />
-    </div>
+    <div class="form-group"><label>Nome Completo</label><input id="nome" /></div>
+    <div class="form-group"><label>Nome Social</label><input id="nomeSocial" /></div>
+    <div class="form-group"><label>Área de Pesquisa</label><input id="pesquisa" /></div>
+    <div class="form-group"><label>Profissão</label><input id="profissao" /></div>
+    <div class="form-group"><label>Especialidade</label><input id="especialidade" /></div>
+    <div class="form-group"><label>Moradia</label><input id="moradia" /></div>
 
     <button class="btn-salvar" onclick="salvarDados()">Salvar Cadastro</button>
   </div>
 </div>
 
 <script>
-/* ================= STORAGE ================= */
 const CHAVE = "perfil_1234";
 
-/* ================= ÍCONES AUTOMÁTICOS ================= */
 const ICONES_MODULOS = {
   "Herbário": "🌿",
   "Rios, Riachos e Lagoas": "💧",
@@ -446,13 +234,12 @@ const ICONES_MODULOS = {
   "Registrar Algo": "➕"
 };
 
-function aplicarIcones() {
-  document.querySelectorAll(".module-card").forEach(card => {
+function aplicarIcones(){
+  document.querySelectorAll(".module-card").forEach(card=>{
     const titulo = card.querySelector("h3").innerText.trim();
     const icone = ICONES_MODULOS[titulo] || "📁";
-
     let iconBox = card.querySelector(".module-icon");
-    if (!iconBox) {
+    if(!iconBox){
       iconBox = document.createElement("div");
       iconBox.className = "module-icon";
       card.prepend(iconBox);
@@ -461,64 +248,48 @@ function aplicarIcones() {
   });
 }
 
-/* ================= TEMA ================= */
-function alternarTema() {
+function alternarTema(){
   document.body.classList.toggle("dark");
   localStorage.setItem("tema", document.body.classList.contains("dark") ? "dark" : "light");
 }
-
-function carregarTema() {
+function carregarTema(){
   const tema = localStorage.getItem("tema");
-  if (tema === "dark") document.body.classList.add("dark");
+  if(tema==="dark") document.body.classList.add("dark");
 }
 
-/* ================= STORAGE ================= */
-function getStore(key, fallback) {
-  try {
-    const v = localStorage.getItem(key);
-    return v ? JSON.parse(v) : fallback;
-  } catch {
-    return fallback;
-  }
+function getStore(key,fallback){
+  try{ const v=localStorage.getItem(key); return v?JSON.parse(v):fallback; }
+  catch{ return fallback; }
 }
+function setStore(key,value){ localStorage.setItem(key, JSON.stringify(value)); }
 
-function setStore(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-/* ================= PERFIL ================= */
-function atualizarHomeHeader() {
-  const p = getStore(CHAVE, {});
+function atualizarHomeHeader(){
+  const p = getStore(CHAVE,{});
   const nome = p.nomeSocial || p.nome || "Pesquisador Popular";
   const moradia = p.moradia || "Localidade não informada";
-
   document.getElementById("dadosPesquisador").innerText = `${nome} — ${moradia}`;
 
   const hora = new Date().getHours();
   let saudacao = "Olá";
-  if (hora >= 5 && hora < 12) saudacao = "Bom dia";
-  else if (hora >= 12 && hora < 18) saudacao = "Boa tarde";
-  else saudacao = "Boa noite";
+  if(hora>=5 && hora<12) saudacao="Bom dia";
+  else if(hora>=12 && hora<18) saudacao="Boa tarde";
+  else saudacao="Boa noite";
 
   document.getElementById("saudacao").innerText =
     `${saudacao}, ${nome.split(" ")[0]}. Seja bem-vindo(a) ao Rancho de Pesquisas Populares do Semiárido.`;
 }
 
-function carregarDados() {
-  const dados = getStore(CHAVE, {});
-  document.getElementById("uNome").innerText = dados.nomeSocial || dados.nome || "Pesquisador Popular";
-  document.getElementById("uMoradia").innerText = dados.moradia || "—";
-  document.getElementById("uEspecialidade").innerText =
-    `${dados.profissao || ""} ${dados.especialidade || ""}`.trim();
-  document.getElementById("uTempo").innerText =
-    `Membro desde ${dados.membroDesde || new Date().toLocaleDateString()}`;
-  document.getElementById("fotoPerfil").src = dados.foto || "placeholder.png";
-
+function carregarDados(){
+  const d = getStore(CHAVE,{});
+  document.getElementById("uNome").innerText = d.nomeSocial || d.nome || "Pesquisador Popular";
+  document.getElementById("uMoradia").innerText = d.moradia || "—";
+  document.getElementById("uEspecialidade").innerText = `${d.profissao||""} ${d.especialidade||""}`.trim();
+  document.getElementById("uTempo").innerText = `Membro desde ${d.membroDesde || new Date().toLocaleDateString()}`;
+  document.getElementById("fotoPerfil").src = d.foto || "./placeholder.png";
   atualizarHomeHeader();
 }
 
-/* ================= SALVAR ================= */
-function salvarDados() {
+function salvarDados(){
   const dados = {
     nome: document.getElementById("nome").value,
     nomeSocial: document.getElementById("nomeSocial").value,
@@ -529,27 +300,20 @@ function salvarDados() {
     membroDesde: new Date().toLocaleDateString(),
     foto: document.getElementById("fotoPerfil").src
   };
-  setStore(CHAVE, dados);
+  setStore(CHAVE,dados);
   carregarDados();
   fecharDados();
 }
 
-/* ================= MÓDULOS ================= */
-function abrirModulo(nome) {
+/* MÓDULOS */
+function abrirModulo(nome){
   const n = String(nome || "").trim().toLowerCase();
 
-  if (n === "legislativo" || n.includes("legisl")) {
+  if(n==="legislativo" || n.includes("legisl")){
     window.location.href = "legislativo/index.html";
     return;
   }
 
-  document.getElementById("modalTitulo").innerText = nome;
-
-  const formulario = ` ... seu formulário ... `;
-  document.getElementById("frame").srcdoc = formulario;
-  document.getElementById("modalIframe").style.display = "flex";
-}
-  // Padrão: abre o formulário dentro do modal (como já era)
   document.getElementById("modalTitulo").innerText = nome;
 
   const formulario = `
@@ -583,7 +347,7 @@ function abrirModulo(nome) {
   document.getElementById("modalIframe").style.display = "flex";
 }
 
-function salvarRegistroModulo(modulo) {
+function salvarRegistroModulo(modulo){
   const doc = document.getElementById("frame").contentWindow.document;
   const registro = {
     modulo,
@@ -596,7 +360,7 @@ function salvarRegistroModulo(modulo) {
     criadoEm: new Date().toLocaleString()
   };
 
-  const chaveModulo = "modulo_" + modulo.replace(/\s/g, "_").toLowerCase();
+  const chaveModulo = "modulo_" + modulo.replace(/\s/g,"_").toLowerCase();
   const dados = getStore(chaveModulo, []);
   dados.push(registro);
   setStore(chaveModulo, dados);
@@ -605,50 +369,50 @@ function salvarRegistroModulo(modulo) {
   fecharModal();
 }
 
-/* ================= MODAIS ================= */
-function abrirDados() {
-  document.getElementById("modalDados").style.display = "flex";
+/* MODAIS */
+function abrirDados(){ document.getElementById("modalDados").style.display="flex"; }
+function fecharDados(){ document.getElementById("modalDados").style.display="none"; }
+function fecharModal(){
+  document.getElementById("modalIframe").style.display="none";
+  document.getElementById("frame").srcdoc="";
 }
 
-function fecharDados() {
-  document.getElementById("modalDados").style.display = "none";
-}
-
-function fecharModal() {
-  document.getElementById("modalIframe").style.display = "none";
-  document.getElementById("frame").srcdoc = "";
-}
-
-/* ================= FOTO ================= */
-function trocarFoto() {
-  document.getElementById("fotoInput").click();
-}
-
-document.getElementById("fotoInput").addEventListener("change", function (e) {
+/* FOTO */
+function trocarFoto(){ document.getElementById("fotoInput").click(); }
+document.getElementById("fotoInput").addEventListener("change",(e)=>{
   const file = e.target.files[0];
-  if (!file) return;
-
+  if(!file) return;
   const reader = new FileReader();
-  reader.onload = function (evt) {
+  reader.onload = (evt)=>{
     document.getElementById("fotoPerfil").src = evt.target.result;
-    const dados = getStore(CHAVE, {});
-    dados.foto = evt.target.result;
-    setStore(CHAVE, dados);
+    const d = getStore(CHAVE,{});
+    d.foto = evt.target.result;
+    setStore(CHAVE,d);
   };
   reader.readAsDataURL(file);
 });
 
-/* ================= INIT ================= */
-window.addEventListener("load", () => {
+/* Ajuste automático da altura do header para o sticky do home-header */
+function ajustarAlturaHeader(){
+  const h = document.querySelector(".header");
+  if(!h) return;
+  document.documentElement.style.setProperty("--header-h", h.getBoundingClientRect().height + "px");
+}
+
+/* INIT */
+window.addEventListener("load",()=>{
   carregarTema();
   aplicarIcones();
 
-  const dados = getStore(CHAVE, null);
-  if (!dados || !dados.nome) abrirDados();
+  const d = getStore(CHAVE,null);
+  if(!d || !d.nome) abrirDados();
   carregarDados();
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
+  ajustarAlturaHeader();
+  window.addEventListener("resize", ajustarAlturaHeader);
+
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("./sw.js");
   }
 });
 </script>
