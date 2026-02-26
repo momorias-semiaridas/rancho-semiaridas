@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Legislativo — Rancho Semiáridas</title>
+<style>
+  body{margin:0;font-family:Arial,sans-serif;background:#f2f2f2}
+  .header{background:#2e7d32;color:#fff;padding:14px 16px;font-weight:700;position:sticky;top:0;z-index:10}
+  .sub{font-weight:400;font-size:12px;opacity:.9;margin-top:4px}
+  .wrap{max-width:900px;margin:18px auto;padding:0 12px}
+  .card{background:#fff;border-radius:18px;box-shadow:0 8px 20px rgba(0,0,0,.12);padding:16px}
+  .btn{
+    width:100%;display:flex;gap:12px;align-items:center;
+    border:none;border-radius:16px;padding:14px;background:#fff;cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,.10);text-align:left
+  }
+  .ico{width:54px;height:54px;border-radius:16px;background:#e0f2e9;display:flex;align-items:center;justify-content:center;font-size:26px}
+  .btn strong{display:block;color:#2e7d32}
+  .btn span{display:block;color:#555;font-size:12px;margin-top:2px}
+  .row{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+  .mini{background:#2e7d32;color:#fff;border:none;border-radius:12px;padding:10px 12px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="header">
+  ESPAÇO DE PESQUISA POPULAR DO LEGISLATIVO MUNICIPAL DE INAJÁ
+  <div class="sub">Ferramentas e registros do Legislativo (modo inicial)</div>
+</div>
+
+<div class="wrap">
+  <div class="card">
+
+    <button class="btn" onclick="window.location.href='indextranscamara.html'">
+      <div class="ico">📄</div>
+      <div>
+        <strong>Transcrever Algo</strong>
+        <span>Ir para o transcritor de documentos (atas, ofícios, etc.)</span>
+      </div>
+    </button>
+
+    <div class="row">
+      <button class="mini" onclick="window.location.href='../index.html'">← Voltar ao Rancho</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
