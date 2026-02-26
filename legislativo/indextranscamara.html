@@ -1,0 +1,1654 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CÂMARA MUNICIPAL DE INAJÁ - REGISTROS</title>
+<style>
+  :root{
+    --bg:#f4efe8; --card:#fff; --ink:#111827; --muted:#6b7280;
+    --g1:#1b4332; --g2:#2d6a4f; --line:#e5e7eb;
+    --shadow:0 12px 40px rgba(0,0,0,.10);
+    --r:18px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
+  header{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,var(--g1),var(--g2));color:#fff;padding:14px}
+  .title{font-weight:950;font-size:16px}
+  .subtitle{opacity:.9;font-size:12px;margin-top:3px}
+  main{max-width:1100px;margin:0 auto;padding:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px}
+  .sectionTitle{font-weight:950;margin:2px 0 10px}
+  .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#eef5f0;border:1px solid #dbe7df;color:#14452f;font-size:12px;font-weight:900}
+  .hint{font-size:12px;color:var(--muted);line-height:1.35;margin-top:8px}
+  .warn{padding:10px;border:1px solid #f1d6a6;background:#fff7e6;border-radius:14px;color:#7a4a1d;font-size:12px;line-height:1.35;margin-top:10px}
+  .divider{height:1px;background:var(--line);margin:14px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:700px){.row{grid-template-columns:1fr}}
+
+  label{display:block;font-size:12px;color:var(--muted);margin:10px 0 6px}
+  input[type="text"], textarea, select{
+    width:100%;border:1px solid var(--line);border-radius:12px;
+    padding:10px 12px;font-size:14px;outline:none;background:#fff;
+  }
+  textarea{min-height:160px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+  button{border:0;border-radius:14px;padding:10px 12px;font-weight:900;cursor:pointer}
+  .primary{background:linear-gradient(90deg,var(--g1),var(--g2));color:#fff}
+  .ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+  .danger{background:#7f1d1d;color:#fff}
+  .smallBtn{padding:8px 10px;border-radius:12px;font-weight:900}
+  .muted{color:var(--muted)}
+
+  .decades{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .decBtn{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.14);color:#fff;font-weight:900;cursor:pointer;border-radius:999px;padding:8px 10px;font-size:12px}
+  .decBtn.active{background:#fff;color:#0b2b1f;border-color:#fff}
+
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.kpis{grid-template-columns:1fr}}
+  .kpi{border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff}
+  .kpi .lab{font-size:12px;color:var(--muted)}
+  .kpi .val{font-size:20px;font-weight:950;margin-top:2px}
+  .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.25}
+
+  .listBox{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  table{width:100%;border-collapse:collapse}
+  th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+  th{font-size:12px;color:var(--muted);background:#fafafa}
+  td{font-size:13px}
+
+  .step{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+  .stepTitle{font-weight:950;margin-bottom:6px}
+  .stepMuted{font-size:12px;color:var(--muted);line-height:1.35}
+
+  .imgList{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .imgItem{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px}
+  .thumb{width:64px;height:64px;border-radius:12px;border:1px solid var(--line);background:#fafafa;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .imgMeta b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .imgMeta .sm{font-size:12px;color:var(--muted);margin-top:2px}
+
+  .modalBack{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:none;align-items:flex-end;justify-content:center;padding:10px}
+  .modal{background:#fff;border-radius:18px;max-width:980px;width:100%;max-height:90vh;overflow:auto;border:1px solid var(--line)}
+  .modalHead{position:sticky;top:0;background:#fff;padding:12px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;justify-content:space-between}
+  .modalHead .h1{font-weight:950}
+  .modalBody{padding:12px}
+  .tag{display:inline-block;padding:3px 8px;border-radius:999px;border:1px solid #dbe7df;background:#eef5f0;color:#14452f;font-size:12px;font-weight:900}
+
+  /* Modal "Outros" */
+  .miniBack{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;display:none;align-items:center;justify-content:center;padding:14px}
+  .mini{width:min(560px,100%);background:#fff;border-radius:18px;padding:14px;box-shadow:0 12px 40px rgba(0,0,0,.20);border:1px solid var(--line)}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="title">CÂMARA MUNICIPAL DE INAJÁ - REGISTROS</div>
+  <div class="subtitle">Banco Offline • Atas, termos e registros (1920–2020) • Salvo no seu celular</div>
+  <div class="decades" id="decades"></div>
+</header>
+
+<main>
+  <section class="card">
+    <div class="sectionTitle">Resumo dos dados salvos</div>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="lab">Livros cadastrados</div>
+        <div class="val" id="kpiLivros">0</div>
+        <div class="sub" id="kpiLivrosSub">—</div>
+      </div>
+      <div class="kpi">
+        <div class="lab">Ata de posse coletiva</div>
+        <div class="val" id="kpiPosseColetiva">0</div>
+        <div class="sub">Tipo = “Ata de posse geral”</div>
+      </div>
+      <div class="kpi">
+        <div class="lab">Ata de posse individual</div>
+        <div class="val" id="kpiPosseIndividual">0</div>
+        <div class="sub">Tipo = “Ata de posse individual”</div>
+      </div>
+      <div class="kpi">
+        <div class="lab">Termos de compromisso</div>
+        <div class="val" id="kpiTermos">0</div>
+        <div class="sub">Detecção por palavras no Tipo/Tags</div>
+      </div>
+      <div class="kpi">
+        <div class="lab">Total de registros</div>
+        <div class="val" id="kpiTotal">0</div>
+        <div class="sub" id="kpiTotalSub">Filtro: todas as décadas</div>
+      </div>
+      <div class="kpi">
+        <div class="lab">Registros por década</div>
+        <div class="val" id="kpiDecada">—</div>
+        <div class="sub">Selecione uma década acima</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sectionTitle">Número de registros por década</div>
+    <div class="listBox">
+      <table>
+        <thead><tr><th>Década</th><th>Total</th><th>Principais tipos</th></tr></thead>
+        <tbody id="tbodyDecadas"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div style="height:14px"></div>
+
+  <section class="card">
+    <div class="sectionTitle">Assuntos e localidades (classificação automática)</div>
+    <div class="grid">
+      <div>
+        <div class="pill">Assuntos abordados</div>
+        <div class="hint">Classificado por palavras-chave dentro da Transcrição/Texto/Tags (offline, sem inventar).</div>
+        <div class="listBox" style="margin-top:10px">
+          <table>
+            <thead><tr><th>Categoria</th><th>Ocorrências</th></tr></thead>
+            <tbody id="tbodyCategorias"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="pill">Localidades citadas</div>
+        <div class="hint">Extraído do “Local com endereço” e termos frequentes do texto.</div>
+        <div class="listBox" style="margin-top:10px">
+          <table>
+            <thead><tr><th>Termo</th><th>Ocorrências</th></tr></thead>
+            <tbody id="tbodyLocalidades"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="height:14px"></div>
+
+  <section class="card">
+    <div class="sectionTitle">Passo 5 — Imagem (prioridade) e JSON</div>
+
+    <div class="grid">
+      <div class="step">
+        <div class="stepTitle">5.1 Imagens</div>
+        <div class="stepMuted">Escolha do dispositivo (preferencial). URL é opcional. Mesmo se não tiver imagem, você pode salvar o JSON.</div>
+
+        <label>Pegar imagem(ns) do dispositivo</label>
+        <input id="fileImgs" type="file" accept="image/*" multiple />
+
+        <label>OU link por URL (opcional)</label>
+        <input id="urlImg" type="text" placeholder="https://... (se preferir usar URL)" />
+
+        <div class="imgList" id="imgList"></div>
+
+        <div class="warn">
+          As imagens são guardadas internamente no app (offline). Depois entram no PDF como anexo.
+        </div>
+
+        <div class="btns">
+          <button class="ghost" id="btnClearSelected">Limpar seleção</button>
+        </div>
+        <div class="hint" id="imgStatus">Nenhuma imagem selecionada.</div>
+      </div>
+
+      <div class="step">
+        <div class="stepTitle">5.2 Colar JSON e salvar</div>
+        <div class="stepMuted">Cole aqui o JSON do Gemini. O sistema preenche a tabela e guarda “sem dados” no que faltar.</div>
+
+        <label>Livro (como registrado)</label>
+        <input id="inLivro" type="text" placeholder="Ex: Livro de Atas — 1954" />
+
+        <div class="row">
+          <div>
+            <label>Tipo do Documento</label>
+            <select id="inTipo">
+              <option value="">— selecione —</option>
+              <option>Capa</option>
+              <option>Termo de abertura</option>
+              <option>Termo de compromisso</option>
+              <option>Ata de posse geral</option>
+              <option>Ata de posse individual</option>
+              <option>Sessão e Reunião Ordinária</option>
+              <option>Encontro Extraordinário</option>
+              <option>Outros</option>
+            </select>
+            <div class="hint" id="tipoOutrosHint" style="display:none"></div>
+          </div>
+          <div>
+            <label>Codimagem (opcional)</label>
+            <input id="inCod" type="text" placeholder="Ex: TC_01" />
+          </div>
+        </div>
+
+        <label>JSON do Gemini</label>
+        <textarea id="inJson" placeholder='Cole a LISTA JSON. Ex: [{"Livro":"...","Codimagem":"..."}]'></textarea>
+
+        <label>Script/Prompt do Gemini (opcional)</label>
+        <textarea id="inPrompt" placeholder="Cole aqui o script/prompt usado no Gemini..."></textarea>
+
+        <div class="btns">
+          <button class="primary" id="btnSaveJson">Salvar JSON e gerar resumo</button>
+          <button class="ghost" id="btnExportDb">Exportar Backup (JSON)</button>
+          <button class="ghost" id="btnImportDb">Importar Backup</button>
+          <input id="fileImport" type="file" accept="application/json" style="display:none"/>
+          <button class="danger" id="btnWipe">Apagar tudo</button>
+        </div>
+
+        <div class="hint" id="saveStatus">Pronto para salvar JSON (com ou sem imagens).</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sectionTitle">Resumo do registro (tabela preenchida)</div>
+    <div class="hint">Clique em “Ver” para editar e marcar “Revisado em”.</div>
+
+    <div class="divider"></div>
+
+    <div class="sectionTitle">Selecionar encontro (para gerar PDF e filtrar a tabela)</div>
+    <div class="row">
+      <div>
+        <label>Encontro (Título do Encontro)</label>
+        <select id="selEncontro">
+          <option value="">— todos —</option>
+        </select>
+        <div class="hint">Quando escolher um encontro, a tabela e o PDF ficam só daquele encontro.</div>
+      </div>
+      <div>
+        <label>Busca rápida (opcional)</label>
+        <input id="inBusca" type="text" placeholder="Digite palavra do texto, livro, tipo, local..." />
+      </div>
+    </div>
+
+    <div class="listBox" style="margin-top:10px">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Título do Encontro</th>
+            <th>Livro</th>
+            <th>Tipo</th>
+            <th>Década</th>
+            <th>Revisão</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyRegs"></tbody>
+      </table>
+    </div>
+
+    <div class="btns" style="margin-top:14px">
+      <button class="primary" id="btnPdf">Gerar PDF do encontro selecionado</button>
+      <button class="ghost" id="btnPdfTodos">Gerar PDF de todos (opcional)</button>
+    </div>
+    <div class="hint">No Android, depois que abrir, toque em ⋮ → Imprimir → “Salvar como PDF”.</div>
+  </section>
+</main>
+
+<!-- MODAL VER / EDITAR -->
+<div class="modalBack" id="modalBack">
+  <div class="modal">
+    <div class="modalHead">
+      <div>
+        <div class="h1">Ver / Editar registro</div>
+        <div class="muted" style="font-size:12px" id="modalSub">—</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end">
+        <button class="ghost smallBtn" id="btnPdfOne">PDF deste</button>
+        <button class="ghost smallBtn" id="btnPdfFromModal">PDF do encontro</button>
+        <button class="primary" id="btnSaveEdit">Salvar</button>
+        <button class="ghost" id="btnMarkReviewed">Revisado em…</button>
+        <button class="danger" id="btnDeleteRec">Excluir registro</button>
+        <button class="ghost" id="btnCloseModal">Fechar</button>
+      </div>
+    </div>
+    <div class="modalBody" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- MINI MODAL OUTROS -->
+<div class="miniBack" id="modalOutrosBack">
+  <div class="mini">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <div style="font-weight:950">Especificar “Outros” (opcional)</div>
+      <button class="ghost smallBtn" id="btnCloseOutros">X</button>
+    </div>
+    <div class="hint" style="margin-top:8px">Escreva qual é o “Outros”. Isso ficará salvo dentro do registro.</div>
+    <label>Qual “Outros”?</label>
+    <textarea id="txtOutros" placeholder="Ex: Termo de encerramento; Convocação; Ata de instalação..." style="min-height:100px"></textarea>
+    <div class="btns" style="justify-content:flex-end">
+      <button class="ghost" id="btnCancelOutros">Cancelar</button>
+      <button class="primary" id="btnSaveOutros">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+
+  // Caminho do escudo (preferir relativo, sem barra no início)
+  const WATERMARK_URL = "./escudo_inaja.png";
+  // se estiver em assets:
+  // const WATERMARK_URL = "./assets/escudo_inaja.png";
+
+  const DB_KEY = "CMI_INAJA_REGISTROS_V2_PDF";
+  const REVISORES_KEY = "CMI_INAJA_REVISORES_V1";
+
+  const FIELDS = [
+    "Livro","Codimagem","Tipo do Documento","Numeração da Folha","Título do Encontro","Data","Hora",
+    "Local com endereço","Reunião Ordinária?","Transcrição Completa","Texto Revisado","Data da Última Revisão",
+    "Status da Revisão","Vereadores Presentes","Vereadores Ausentes","Houve Quórum","Ata Anterior Lida","Ata Anterior Aprovada",
+    "Expediente do Dia (Resumo)","Expediente do Dia (Detalhes e Folhas)","Convidados","Leis propostas e origem",
+    "Leis votadas e resultado","Proposições/Requerimentos","Curiosidade","Falas marcantes","Homenagem","Nota de pesar",
+    "Redator da Ata","Assinaturas","Observações","Curiosidades e Notas do Transcritor","Tags / Palavras-chave"
+  ];
+  const ALIASES = {
+    "codimagem":"Codimagem","cod_imagem":"Codimagem",
+    "tipo":"Tipo do Documento","tipo do documento":"Tipo do Documento",
+    "numeração da folha":"Numeração da Folha","numeracao da folha":"Numeração da Folha",
+    "título do encontro":"Título do Encontro","titulo do encontro":"Título do Encontro",
+    "local com endereço":"Local com endereço","local com endereco":"Local com endereço",
+    "reunião ordinária?":"Reunião Ordinária?","reuniao ordinaria?":"Reunião Ordinária?",
+    "transcrição completa":"Transcrição Completa","transcricao completa":"Transcrição Completa",
+    "data da última revisão":"Data da Última Revisão","data da ultima revisao":"Data da Última Revisão",
+    "status da revisão":"Status da Revisão","status da revisao":"Status da Revisão",
+    "curiosidades e notas do transcritor":"Curiosidades e Notas do Transcritor",
+    "tags / palavras-chave":"Tags / Palavras-chave","tags/palavras-chave":"Tags / Palavras-chave",
+  };
+  const CATS = [
+    { name:"Distrito", keys:["distrito","povoado","sítio","sitio","vila","zona rural","bairro","comunidade"] },
+    { name:"Saúde", keys:["saúde","posto","hospital","vacina","enferme","médic","medic","farmácia","farmacia","ambulância","ambulancia","saneamento","dengue"] },
+    { name:"Educação", keys:["escola","educação","educacao","professor","aluno","turma","ginásio","ginasio","matrícula","matricula","aula","merenda","creche"] },
+    { name:"Esporte", keys:["esporte","futebol","quadra","campeonato","torneio","time","estádio","estadio"] },
+    { name:"Infraestrutura", keys:["obra","estrada","ponte","calçamento","calcamento","rua","iluminação","iluminacao","energia","rede","água","agua","esgoto","cisterna","açude","acude","barragem"] },
+    { name:"Assistência social", keys:["assistência","assistencia","benefício","beneficio","cras","doação","doacao","cesta","amparo","auxílio","auxilio"] },
+    { name:"Ambiente", keys:["ambiente","meio ambiente","caatinga","seca","chuva","clima","rio","nascentes","lixo","poluição","poluicao","queimada","desmatamento"] },
+  ];
+
+  function escHtml(s){ return String(s??"").replace(/[<>&]/g, c=>({ "<":"&lt;", ">":"&gt;", "&":"&amp;" }[c])); }
+  function nowISO(){ return new Date().toISOString(); }
+  function decadeFromAnyDate(str){
+    const t = String(str||"").trim();
+    const m = t.match(/(18|19|20)\d{2}/);
+    if(!m) return null;
+    const y = Number(m[0]);
+    return Number.isFinite(y) ? Math.floor(y/10)*10 : null;
+  }
+  function brasiliaStamp(){
+    const fmt = new Intl.DateTimeFormat("pt-BR", {
+      timeZone: "America/Sao_Paulo",
+      year:"numeric", month:"2-digit", day:"2-digit",
+      hour:"2-digit", minute:"2-digit", second:"2-digit",
+      hour12:false
+    });
+    return fmt.format(new Date());
+  }
+  function simpleId(){
+    return Math.random().toString(16).slice(2) + Date.now().toString(16);
+  }
+
+  function loadDB(){
+    try{
+      const raw = localStorage.getItem(DB_KEY);
+      const db = raw ? JSON.parse(raw) : { rows: [], nextId: 1 };
+      if(!db.rows) db.rows = [];
+      if(!db.nextId) db.nextId = 1;
+      return db;
+    }catch{ return { rows: [], nextId: 1 }; }
+  }
+  function saveDB(db){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+
+  function loadRevisores(){
+    try{
+      const raw = localStorage.getItem(REVISORES_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    }catch{ return []; }
+  }
+  function saveRevisores(arr){
+    localStorage.setItem(REVISORES_KEY, JSON.stringify(arr));
+  }
+  function ensureRevisor(nome){
+    const n = String(nome||"").trim();
+    if(!n) return;
+    const arr = loadRevisores();
+    const exists = arr.some(x => x.toLowerCase() === n.toLowerCase());
+    if(!exists){
+      arr.push(n);
+      arr.sort((a,b)=>a.localeCompare(b,"pt-BR"));
+      saveRevisores(arr);
+    }
+  }
+
+  // IndexedDB (imagens)
+  const idb = {
+    open(){
+      return new Promise((resolve,reject)=>{
+        const req = indexedDB.open("CMI_IMGS_DB_PDF", 1);
+        req.onupgradeneeded = () => { req.result.createObjectStore("imgs"); };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    },
+    async set(key, blob){
+      const db = await idb.open();
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction("imgs","readwrite");
+        tx.objectStore("imgs").put(blob, key);
+        tx.oncomplete = ()=>resolve();
+        tx.onerror = ()=>reject(tx.error);
+      });
+    },
+    async get(key){
+      const db = await idb.open();
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction("imgs","readonly");
+        const req = tx.objectStore("imgs").get(key);
+        req.onsuccess = ()=>resolve(req.result || null);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+  };
+
+  async function blobToDataURL(blob){
+    return new Promise((resolve,reject)=>{
+      const r = new FileReader();
+      r.onload = ()=>resolve(r.result);
+      r.onerror = ()=>reject(r.error);
+      r.readAsDataURL(blob);
+    });
+  }
+
+  // ===== SUGESTÃO INSERIDA: EMBUTIR MARCA D'ÁGUA NO HTML (para não sumir no arquivo baixado) =====
+  async function getWatermarkDataURL(){
+    try{
+      const resp = await fetch(WATERMARK_URL, { cache:"no-store" });
+      const blob = await resp.blob();
+      return await blobToDataURL(blob);
+    }catch(e){
+      return ""; // se não achar o arquivo, segue sem marca d'água
+    }
+  }
+
+  // Classificação automática
+  function tokenize(rec){
+    return [
+      rec["Título do Encontro"], rec["Local com endereço"], rec["Tags / Palavras-chave"],
+      rec["Transcrição Completa"], rec["Texto Revisado"], rec["Observações"], rec["Curiosidades e Notas do Transcritor"]
+    ].map(x=>String(x||"")).join("\n").toLowerCase();
+  }
+  function autoClassify(rec){
+    const text = tokenize(rec);
+    const hits = [];
+    for(const c of CATS){
+      if(c.keys.some(k => text.includes(k))) hits.push(c.name);
+    }
+    if(!hits.length) hits.push("Outros");
+
+    const cur = String(rec["Tags / Palavras-chave"]||"").split(/[;,]/g).map(x=>x.trim()).filter(Boolean);
+    const set = new Set(cur.map(x=>x.toLowerCase()));
+    hits.forEach(h=>{
+      if(!set.has(h.toLowerCase())){ cur.push(h); set.add(h.toLowerCase()); }
+    });
+    rec["Tags / Palavras-chave"] = cur.join("; ");
+    return rec;
+  }
+
+  function normalizeOne(obj, defaults){
+    const out = {};
+    FIELDS.forEach(k => out[k] = "sem dados");
+    for(const [k0,v0] of Object.entries(obj||{})){
+      const k = String(k0).trim();
+      const low = k.toLowerCase();
+      const canon = FIELDS.includes(k) ? k : (ALIASES[low] || null);
+      if(canon){
+        const v = (v0===null||v0===undefined) ? "" : String(v0).trim();
+        out[canon] = v ? v : "sem dados";
+      }
+    }
+    if(defaults){
+      for(const [k,v] of Object.entries(defaults)){
+        if(out[k]==="sem dados" && String(v||"").trim()) out[k]=String(v).trim();
+      }
+    }
+    out._schema="INAJA_ATA_V2";
+    out._created_at=nowISO();
+    out._updated_at=nowISO();
+    out._decade = (out["Data"]!=="sem dados") ? (decadeFromAnyDate(out["Data"]) || "sem dados") : "sem dados";
+    out._images = [];
+    out._prompt = "";
+    out._reviewed_at_brasilia = "";
+    out._reviewer = "";
+    out._review_history = []; // [{stamp, reviewer}]
+    out._tipo_outros = "";     // <<< detalhe de "Outros"
+    out._key = (String(out["Livro"])+"||"+String(out["Codimagem"])+"||"+String(out["Título do Encontro"])).toLowerCase();
+    return autoClassify(out);
+  }
+
+  function detectArray(payload){
+    if(Array.isArray(payload)) return payload;
+    if(payload && typeof payload==="object"){
+      if(Array.isArray(payload.rows)) return payload.rows;
+      if(Array.isArray(payload.data)) return payload.data;
+    }
+    return null;
+  }
+
+  function unique(arr){
+    return [...new Set(arr.filter(Boolean))];
+  }
+
+  // Estado de seleção
+  let selectedDecade = null;
+  let selectedEncontro = ""; // título do encontro selecionado
+  let searchQuery = "";
+
+  // Seleção de imagens em memória para o próximo save
+  let selectedImageKeys = []; // chaves no idb (blobs)
+  let selectedImageMeta = []; // {key, name, size}
+
+  // Modal edit
+  let currentId = null;
+  let editDraft = null;
+
+  // Modal "Outros"
+  let pendingOutrosTarget = null; // {setterFn}
+
+  function resetSelectedImages(){
+    selectedImageKeys = [];
+    selectedImageMeta = [];
+    $("imgList").innerHTML = "";
+    $("imgStatus").textContent = "Nenhuma imagem selecionada.";
+    $("fileImgs").value = "";
+    $("urlImg").value = "";
+  }
+
+  async function addFilesToSelection(files){
+    const list = Array.from(files || []);
+    for(const f of list){
+      const key = "img_" + simpleId();
+      await idb.set(key, f);
+      selectedImageKeys.push(key);
+      selectedImageMeta.push({key, name:f.name || "imagem", size:f.size || 0});
+    }
+    renderSelectedImages();
+  }
+
+  async function addUrlToSelection(url){
+    const u = String(url||"").trim();
+    if(!u) return;
+    try{
+      const resp = await fetch(u);
+      const blob = await resp.blob();
+      const key = "img_" + simpleId();
+      await idb.set(key, blob);
+      selectedImageKeys.push(key);
+      selectedImageMeta.push({key, name:u.slice(0,48), size:blob.size || 0});
+      renderSelectedImages();
+    }catch(e){
+      alert("Não consegui baixar a imagem por URL. Verifique a internet/URL.");
+    }
+  }
+
+  async function renderSelectedImages(){
+    const box = $("imgList");
+    box.innerHTML = "";
+    for(const m of selectedImageMeta){
+      const blob = await idb.get(m.key);
+      const data = blob ? await blobToDataURL(blob) : "";
+      const div = document.createElement("div");
+      div.className = "imgItem";
+      div.innerHTML = `
+        <div class="thumb">${data ? `<img src="${data}">` : ""}</div>
+        <div class="imgMeta">
+          <b title="${escHtml(m.name)}">${escHtml(m.name)}</b>
+          <div class="sm">${Math.round((m.size||0)/1024)} KB • ${escHtml(m.key)}</div>
+        </div>
+      `;
+      box.appendChild(div);
+    }
+    $("imgStatus").textContent = selectedImageMeta.length ? `${selectedImageMeta.length} imagem(ns) selecionada(s).` : "Nenhuma imagem selecionada.";
+  }
+
+  function computeKPIs(rows){
+    const books = unique(rows.map(r=>r["Livro"]).filter(x=>x && x!=="sem dados"));
+    $("kpiLivros").textContent = books.length;
+    $("kpiLivrosSub").textContent = books.length ? books.slice(0,3).join(" • ") + (books.length>3 ? " • ..." : "") : "—";
+
+    const posseCol = rows.filter(r => String(r["Tipo do Documento"]||"").toLowerCase().includes("posse geral")).length;
+    const posseInd = rows.filter(r => String(r["Tipo do Documento"]||"").toLowerCase().includes("posse individual")).length;
+    const termos = rows.filter(r => {
+      const t = String(r["Tipo do Documento"]||"").toLowerCase();
+      const tags = String(r["Tags / Palavras-chave"]||"").toLowerCase();
+      return t.includes("termo") || tags.includes("termo");
+    }).length;
+
+    $("kpiPosseColetiva").textContent = posseCol;
+    $("kpiPosseIndividual").textContent = posseInd;
+    $("kpiTermos").textContent = termos;
+
+    $("kpiTotal").textContent = rows.length;
+    $("kpiTotalSub").textContent = selectedDecade ? `Filtro: ${selectedDecade}s` : "Filtro: todas as décadas";
+
+    if(selectedDecade){
+      const n = rows.filter(r => String(r._decade) === String(selectedDecade)).length;
+      $("kpiDecada").textContent = n;
+    }else{
+      $("kpiDecada").textContent = "—";
+    }
+  }
+
+  function buildDecadeButtons(rows){
+    const decades = unique(rows.map(r=>r._decade).filter(d => d && d!=="sem dados" && String(d).match(/^\d+$/)))
+      .map(Number).sort((a,b)=>a-b);
+
+    const box = $("decades");
+    box.innerHTML = "";
+    const btnAll = document.createElement("button");
+    btnAll.className = "decBtn" + (!selectedDecade ? " active" : "");
+    btnAll.textContent = "Todas";
+    btnAll.onclick = () => { selectedDecade=null; renderAll(); };
+    box.appendChild(btnAll);
+
+    decades.forEach(d=>{
+      const b = document.createElement("button");
+      b.className = "decBtn" + (String(selectedDecade)===String(d) ? " active" : "");
+      b.textContent = d + "s";
+      b.onclick = () => { selectedDecade=d; renderAll(); };
+      box.appendChild(b);
+    });
+  }
+
+  function buildDecadeTable(rows){
+    const map = new Map();
+    rows.forEach(r=>{
+      const d = r._decade;
+      if(!d || d==="sem dados") return;
+      const key = String(d);
+      if(!map.has(key)) map.set(key, {dec:d, total:0, types:new Map()});
+      const obj = map.get(key);
+      obj.total++;
+      const t = String(r["Tipo do Documento"]||"").trim() || "sem dados";
+      obj.types.set(t, (obj.types.get(t)||0)+1);
+    });
+    const arr = [...map.values()].sort((a,b)=>Number(a.dec)-Number(b.dec));
+    const tbody = $("tbodyDecadas");
+    tbody.innerHTML = "";
+    arr.forEach(o=>{
+      const topTypes = [...o.types.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>`${x[0]} (${x[1]})`).join(" • ");
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td><b>${escHtml(o.dec)}s</b></td><td>${o.total}</td><td>${escHtml(topTypes||"—")}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function buildCatsAndLocs(rows){
+    const catCounts = new Map();
+    const locCounts = new Map();
+
+    for(const r of rows){
+      const tags = String(r["Tags / Palavras-chave"]||"").split(/[;,]/g).map(x=>x.trim()).filter(Boolean);
+      tags.forEach(t => catCounts.set(t, (catCounts.get(t)||0)+1));
+
+      const loc = String(r["Local com endereço"]||"").toLowerCase();
+      if(loc && loc!=="sem dados"){
+        const parts = loc.split(/[,;–\-]/g).map(x=>x.trim()).filter(Boolean);
+        parts.slice(0,4).forEach(p=>{
+          if(p.length>=4) locCounts.set(p, (locCounts.get(p)||0)+1);
+        });
+      }
+      const txt = tokenize(r);
+      ["inajá","inaja","buíque","buique","tacaratú","tacaratu","petrolândia","petrolandia","sertânia","sertania","arcoverde"].forEach(k=>{
+        if(txt.includes(k)) locCounts.set(k, (locCounts.get(k)||0)+1);
+      });
+    }
+
+    const cats = [...catCounts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,25);
+    const locs = [...locCounts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,25);
+
+    $("tbodyCategorias").innerHTML = cats.map(([k,v])=>`<tr><td>${escHtml(k)}</td><td>${v}</td></tr>`).join("") || `<tr><td>—</td><td>0</td></tr>`;
+    $("tbodyLocalidades").innerHTML = locs.map(([k,v])=>`<tr><td>${escHtml(k)}</td><td>${v}</td></tr>`).join("") || `<tr><td>—</td><td>0</td></tr>`;
+  }
+
+  function fillEncontroSelect(rows){
+    const titles = unique(rows.map(r=>String(r["Título do Encontro"]||"").trim()).filter(x=>x && x!=="sem dados")).sort((a,b)=>a.localeCompare(b,"pt-BR"));
+    const sel = $("selEncontro");
+    const prev = sel.value;
+    sel.innerHTML = `<option value="">— todos —</option>` + titles.map(t=>`<option value="${escHtml(t)}">${escHtml(t)}</option>`).join("");
+    if(prev && titles.includes(prev)) sel.value = prev;
+    selectedEncontro = sel.value || "";
+  }
+
+  function passFilters(rows){
+    let out = rows.slice();
+    if(selectedDecade){
+      out = out.filter(r => String(r._decade) === String(selectedDecade));
+    }
+    if(selectedEncontro){
+      out = out.filter(r => String(r["Título do Encontro"]||"").trim() === selectedEncontro);
+    }
+    if(searchQuery){
+      const q = searchQuery.toLowerCase();
+      out = out.filter(r=>{
+        const blob = [
+          r["Livro"], r["Codimagem"], r["Tipo do Documento"], r["Título do Encontro"], r["Data"], r["Hora"],
+          r["Local com endereço"], r["Transcrição Completa"], r["Texto Revisado"], r["Tags / Palavras-chave"]
+        ].map(x=>String(x||"")).join("\n").toLowerCase();
+        return blob.includes(q);
+      });
+    }
+    return out;
+  }
+
+  function renderRegsTable(rows){
+    const tbody = $("tbodyRegs");
+    tbody.innerHTML = "";
+    rows.forEach(r=>{
+      const rev = r._reviewed_at_brasilia ? `${escHtml(r._reviewed_at_brasilia)}<br><span class="muted">${escHtml(r._reviewer||"")}</span>` : `<span class="muted">não revisado</span>`;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escHtml(r["Data"]||"")}</td>
+        <td>${escHtml(r["Título do Encontro"]||"")}</td>
+        <td>${escHtml(r["Livro"]||"")}</td>
+        <td>${escHtml(r["Tipo do Documento"]||"")}</td>
+        <td>${escHtml(r._decade||"")}</td>
+        <td>${rev}</td>
+        <td>
+          <button class="ghost smallBtn" data-act="view" data-id="${r._id}">Ver</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll("button[data-act='view']").forEach(b=>{
+      b.onclick = ()=> openModal(Number(b.getAttribute("data-id")));
+    });
+  }
+
+  function renderAll(){
+    const db = loadDB();
+    buildDecadeButtons(db.rows);
+    fillEncontroSelect(db.rows);
+
+    const filtered = passFilters(db.rows);
+
+    computeKPIs(filtered);
+    buildDecadeTable(db.rows);
+    buildCatsAndLocs(filtered);
+    renderRegsTable(filtered);
+  }
+
+  // ====== MODAL OUTROS ======
+  function openOutrosModal(currentValue, setterFn){
+    pendingOutrosTarget = { setterFn };
+    $("txtOutros").value = String(currentValue||"").trim();
+    $("modalOutrosBack").style.display = "flex";
+  }
+  function closeOutrosModal(){
+    $("modalOutrosBack").style.display = "none";
+    pendingOutrosTarget = null;
+  }
+
+  // ====== SALVAR JSON ======
+  async function onSaveJson(){
+    try{
+      const raw = $("inJson").value.trim();
+      if(!raw){
+        alert("Cole o JSON do Gemini no campo JSON.");
+        return;
+      }
+
+      const defaults = {
+        "Livro": $("inLivro").value.trim(),
+        "Codimagem": $("inCod").value.trim(),
+        "Tipo do Documento": $("inTipo").value.trim()
+      };
+
+      // Se Tipo = Outros, aplica detalhe se existir
+      if(defaults["Tipo do Documento"] === "Outros"){
+        const det = String($("tipoOutrosHint").dataset.val || "").trim();
+        if(det){
+          defaults["Tipo do Documento"] = `Outros — ${det}`;
+        }
+      }
+
+      let payload;
+      try{ payload = JSON.parse(raw); }
+      catch(e){
+        alert("JSON inválido. Verifique aspas, vírgulas e colchetes.");
+        return;
+      }
+
+      const arr = detectArray(payload);
+      if(!arr){
+        alert("Esperado uma LISTA JSON (array). Ex: [{...},{...}]");
+        return;
+      }
+
+      // URL opcional vira imagem também
+      const url = $("urlImg").value.trim();
+      if(url) await addUrlToSelection(url);
+
+      const db = loadDB();
+      const prompt = $("inPrompt").value.trim();
+
+      let added = 0;
+      for(const obj of arr){
+        const rec = normalizeOne(obj, defaults);
+
+        rec._id = db.nextId++;
+        rec._updated_at = nowISO();
+        rec._prompt = prompt || "";
+
+        // grava detalhe de "Outros" se veio da UI (tipo)
+        if(String($("inTipo").value).trim() === "Outros"){
+          rec._tipo_outros = String($("tipoOutrosHint").dataset.val || "").trim();
+        }
+
+        // guarda imagem(s) selecionadas no registro (chaves do idb)
+        rec._images = selectedImageKeys.slice();
+
+        db.rows.unshift(rec);
+        added++;
+      }
+
+      saveDB(db);
+      $("saveStatus").textContent = `Salvo! ${added} registro(s) adicionados.`;
+      resetSelectedImages();
+
+      // limpa JSON para evitar salvar duplicado sem querer
+      $("inJson").value = "";
+
+      renderAll();
+    }catch(err){
+      console.error(err);
+      alert("Erro ao salvar. Veja o console (se tiver) ou revise o JSON.");
+    }
+  }
+
+  // ====== MODAL VER/EDITAR ======
+  function openModal(id){
+    const db = loadDB();
+    const rec = db.rows.find(r => Number(r._id) === Number(id));
+    if(!rec){
+      alert("Registro não encontrado.");
+      return;
+    }
+    currentId = id;
+    editDraft = JSON.parse(JSON.stringify(rec));
+
+    $("modalSub").innerHTML = `
+      <span class="tag">ID ${id}</span>
+      <span class="tag">${escHtml(rec._decade||"")}</span>
+      <span class="tag">${rec._reviewed_at_brasilia ? "revisado" : "não revisado"}</span>
+    `;
+
+    $("modalBody").innerHTML = buildEditForm(editDraft);
+    $("modalBack").style.display = "flex";
+
+    // liga botões especiais dentro do modal
+    const btnTipoOutros = $("btnEditTipoOutros");
+    if(btnTipoOutros){
+      btnTipoOutros.onclick = ()=>{
+        openOutrosModal(editDraft._tipo_outros || "", (val)=>{
+          editDraft._tipo_outros = val;
+          // reflete no campo Tipo do Documento
+          const base = "Outros";
+          const v = val ? `Outros — ${val}` : base;
+          editDraft["Tipo do Documento"] = v;
+          $("modalBody").innerHTML = buildEditForm(editDraft);
+          // re-liga eventos recarregando
+          wireModalInnerEvents();
+        });
+      };
+    }
+
+    wireModalInnerEvents();
+  }
+
+  function wireModalInnerEvents(){
+    // select revisor
+    const sel = $("selReviewer");
+    if(sel){
+      const lista = loadRevisores();
+      const cur = String(editDraft._reviewer||"").trim();
+
+      sel.innerHTML =
+        `<option value="">— selecione —</option>` +
+        lista.map(n=>`<option value="${escHtml(n)}">${escHtml(n)}</option>`).join("") +
+        `<option value="__NOVO__">+ Novo…</option>`;
+
+      if(cur){
+        ensureRevisor(cur);
+        sel.value = cur;
+      }
+
+      sel.onchange = ()=>{
+        if(sel.value === "__NOVO__"){
+          const nome = prompt("Nome de quem revisou:");
+          const n = String(nome||"").trim();
+          if(!n){ sel.value = ""; return; }
+          ensureRevisor(n);
+          editDraft._reviewer = n;
+          // repopula e mantém
+          wireModalInnerEvents();
+          $("selReviewer").value = n;
+        }else{
+          editDraft._reviewer = sel.value || "";
+        }
+      };
+    }
+
+    // inputs gerais
+    FIELDS.forEach(field=>{
+      const el = document.querySelector(`[data-field="${CSS.escape(field)}"]`);
+      if(el){
+        el.oninput = ()=>{ editDraft[field] = el.value; editDraft._updated_at = nowISO(); };
+      }
+    });
+
+    // tags
+    const tags = $("editTags");
+    if(tags){
+      tags.oninput = ()=>{
+        editDraft["Tags / Palavras-chave"] = tags.value;
+        editDraft._updated_at = nowISO();
+      };
+    }
+  }
+
+  function closeModal(){
+    $("modalBack").style.display = "none";
+    currentId = null;
+    editDraft = null;
+  }
+
+  function buildEditForm(rec){
+    const reviewed = rec._reviewed_at_brasilia ? `${escHtml(rec._reviewed_at_brasilia)} • ${escHtml(rec._reviewer||"")}` : "não revisado";
+    const tipo = String(rec["Tipo do Documento"]||"").trim();
+
+    const imagesCount = (rec._images||[]).length;
+
+    const top = `
+      <div class="card" style="box-shadow:none">
+        <div class="sectionTitle" style="margin-bottom:6px">Status</div>
+        <div class="hint">
+          <b>Revisão:</b> ${reviewed}<br>
+          <b>Imagens anexadas:</b> ${imagesCount}<br>
+          <b>Outros (Tipo):</b> ${escHtml(rec._tipo_outros||"—")}
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <div>
+            <label>Quem revisou (salva e reaparece depois)</label>
+            <select id="selReviewer"></select>
+          </div>
+          <div>
+            <label>Ação rápida</label>
+            <button class="ghost" id="btnEditTipoOutros" ${tipo.toLowerCase().startsWith("outros") ? "" : "disabled"} style="width:100%">
+              Editar “Outros” do Tipo
+            </button>
+            <div class="hint">${tipo.toLowerCase().startsWith("outros") ? "Use se o documento for “Outros”." : "Ative colocando Tipo do Documento como “Outros”."}</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const fieldsHtml = FIELDS.map(f=>{
+      const v = String(rec[f] ?? "");
+      const isBig = ["Transcrição Completa","Texto Revisado","Observações","Curiosidades e Notas do Transcritor","Expediente do Dia (Detalhes e Folhas)"].includes(f);
+      if(f==="Tags / Palavras-chave"){
+        return `
+          <label>${escHtml(f)}</label>
+          <textarea id="editTags" style="min-height:90px">${escHtml(v)}</textarea>
+        `;
+      }
+      if(isBig){
+        return `
+          <label>${escHtml(f)}</label>
+          <textarea data-field="${escHtml(f)}">${escHtml(v)}</textarea>
+        `;
+      }
+      return `
+        <label>${escHtml(f)}</label>
+        <input type="text" data-field="${escHtml(f)}" value="${escHtml(v)}"/>
+      `;
+    }).join("");
+
+    return top + `<div class="divider"></div>` + fieldsHtml + buildImagesPanel(rec);
+  }
+
+  function buildImagesPanel(rec){
+    const keys = rec._images || [];
+    if(!keys.length){
+      return `<div class="divider"></div><div class="hint"><b>Anexos:</b> nenhuma imagem neste registro.</div>`;
+    }
+    const html = `
+      <div class="divider"></div>
+      <div class="sectionTitle">Imagens anexadas (offline)</div>
+      <div class="hint">Elas serão incluídas no PDF como anexo.</div>
+      <div class="imgList" id="modalImgList"></div>
+    `;
+    setTimeout(async ()=>{
+      const box = $("modalImgList");
+      if(!box) return;
+      box.innerHTML = "";
+      for(const k of keys){
+        const blob = await idb.get(k);
+        const data = blob ? await blobToDataURL(blob) : "";
+        const div = document.createElement("div");
+        div.className = "imgItem";
+        div.innerHTML = `
+          <div class="thumb">${data ? `<img src="${data}">` : ""}</div>
+          <div class="imgMeta">
+            <b>${escHtml(k)}</b>
+            <div class="sm">${blob ? Math.round(blob.size/1024) : 0} KB</div>
+          </div>
+        `;
+        box.appendChild(div);
+      }
+    }, 50);
+    return html;
+  }
+
+  function saveEdit(){
+    if(!currentId || !editDraft) return;
+    const ok = confirm("Deseja mesmo salvar as alterações deste registro?");
+    if(!ok) return;
+
+    // se tipo "Outros" e tiver detalhe, garante padronização
+    const t = String(editDraft["Tipo do Documento"]||"").trim();
+    if(t === "Outros"){
+      if(editDraft._tipo_outros){
+        editDraft["Tipo do Documento"] = `Outros — ${editDraft._tipo_outros}`;
+      }
+    }
+
+    // reclassifica automaticamente (atualiza tags)
+    autoClassify(editDraft);
+
+    const db = loadDB();
+    const idx = db.rows.findIndex(r => Number(r._id) === Number(currentId));
+    if(idx<0){ alert("Registro não encontrado para salvar."); return; }
+    db.rows[idx] = editDraft;
+    db.rows[idx]._updated_at = nowISO();
+    saveDB(db);
+
+    closeModal();
+    renderAll();
+  }
+
+  function markReviewed(){
+    if(!currentId || !editDraft) return;
+
+    // se não escolheu revisor, pede
+    let reviewer = String(editDraft._reviewer||"").trim();
+    if(!reviewer){
+      const lista = loadRevisores();
+      const sug = lista[0] ? `\nSugestão: ${lista.slice(0,3).join(" / ")}` : "";
+      const nome = prompt("Nome de quem revisou:" + sug);
+      reviewer = String(nome||"").trim();
+      if(!reviewer){
+        alert("Sem revisor: cancelado.");
+        return;
+      }
+      ensureRevisor(reviewer);
+      editDraft._reviewer = reviewer;
+    }else{
+      ensureRevisor(reviewer);
+    }
+
+    const stamp = brasiliaStamp();
+    editDraft._reviewed_at_brasilia = stamp;
+    if(!Array.isArray(editDraft._review_history)) editDraft._review_history = [];
+    editDraft._review_history.push({ stamp, reviewer });
+
+    // Atualiza campos públicos também (se o usuário quiser ver na tabela)
+    editDraft["Data da Última Revisão"] = stamp;
+    editDraft["Status da Revisão"] = "Revisado";
+
+    $("modalBody").innerHTML = buildEditForm(editDraft);
+    wireModalInnerEvents();
+  }
+
+  function deleteRec(){
+    if(!currentId) return;
+    const ok = confirm("Deseja mesmo EXCLUIR este registro? Isso não tem como desfazer.");
+    if(!ok) return;
+    const db = loadDB();
+    db.rows = db.rows.filter(r => Number(r._id) !== Number(currentId));
+    saveDB(db);
+    closeModal();
+    renderAll();
+  }
+
+  // ====== PDF (print) ======
+  function formatAbnt(rec){
+    // Modelo simples (você pode trocar depois)
+    const titulo = String(rec["Título do Encontro"]||"").trim() || "sem título";
+    const data = String(rec["Data"]||"").trim() || "s.d.";
+    const local = String(rec["Local com endereço"]||"").trim() || "s.l.";
+    const livro = String(rec["Livro"]||"").trim() || "Livro não informado";
+    return `${local}. ${titulo}. ${data}. ${livro}. Câmara Municipal de Inajá (PE).`;
+  }
+
+  async function buildPdfHtmlForRecords(records, title){
+    const upper = (s)=>String(s||"").toUpperCase();
+    const val = (x)=> {
+      const t = String(x??"").trim();
+      return (!t || t==="sem dados") ? "" : t;
+    };
+    const line = (label, value)=> value ? `<span class="lbl">${escHtml(label)}:</span> <span class="v">${escHtml(value)}</span>` : "";
+    const joinDot = (parts)=> parts.filter(Boolean).join(` <span class="dot">•</span> `);
+
+    function docTitulo(rec){
+      // Como você pediu: Expediente do Dia em maiúsculo
+      const a = val(rec["Expediente do Dia (Resumo)"]);
+      return upper(a || "DOCUMENTO");
+    }
+
+    // ===== SUGESTÃO INSERIDA: marca d’água embutida (base64) para funcionar no HTML baixado =====
+    const WM_DATA = await getWatermarkDataURL();
+
+    let body = "";
+
+    for(const rec of records){
+      const id = val(rec._id);
+      const revisadoEm = val(rec._reviewed_at_brasilia);
+      const revisor = val(rec._reviewer);
+      const livro = val(rec["Livro"]);
+      const local = val(rec["Local com endereço"]);
+      const cod = val(rec["Codimagem"]);
+      const tipo = val(rec["Tipo do Documento"]);
+      const folha = val(rec["Numeração da Folha"]);
+      const data = val(rec["Data"]);
+      const hora = val(rec["Hora"]) || "não informado";
+
+      const presentes = val(rec["Vereadores Presentes"]);
+      const ausentes = val(rec["Vereadores Ausentes"]);
+      const quorum = val(rec["Houve Quórum"]);
+
+      const expFolhas = val(rec["Expediente do Dia (Detalhes e Folhas)"]);
+      const leisProp = val(rec["Leis propostas e origem"]);
+      const leisVot = val(rec["Leis votadas e resultado"]);
+      const props = val(rec["Proposições/Requerimentos"]);
+      const falas = val(rec["Falas marcantes"]);
+      const obs = val(rec["Observações"]);
+      const curios = val(rec["Curiosidades e Notas do Transcritor"]);
+      const tags = val(rec["Tags / Palavras-chave"]);
+
+      const trans = val(rec["Transcrição Completa"]);
+      const revtxt = val(rec["Texto Revisado"]);
+
+      const refAbnt = formatAbnt(rec);
+
+      const reviewBlock = revisadoEm
+        ? joinDot([ line("Registro ID", id), line("Revisado em", revisadoEm), line("Por", revisor), line("Livro", livro), line("Local com endereço", local) ])
+        : joinDot([ line("Registro ID", id), `<span class="warn">ARQUIVO NÃO REVISADO</span>`, line("Livro", livro), line("Local com endereço", local) ]);
+
+      // Anexos
+      let anexosHtml = "";
+      if(Array.isArray(rec._images) && rec._images.length){
+        const imgs = [];
+        for(const k of rec._images){
+          const blob = await idb.get(k);
+          if(blob){
+            const dataUrl = await blobToDataURL(blob);
+            imgs.push(`
+              <div class="anexo">
+                <div class="anexoCap"><span class="lbl">Anexo:</span> <span class="v">${escHtml(k)}</span></div>
+                <img src="${dataUrl}" />
+              </div>
+            `);
+          }
+        }
+        anexosHtml = imgs.length ? imgs.join("") : `<div class="muted">—</div>`;
+      }else{
+        anexosHtml = `<div class="muted">(Nenhuma imagem anexada)</div>`;
+      }
+
+      body += `
+        <!-- PÁGINA 1 -->
+        <section class="page">
+          ${WM_DATA ? `<img class="wm" src="${WM_DATA}" alt="Marca d'água"/>` : ``}
+
+          <div class="topBrand">
+            <div class="brand1">INSTITUTO DE PESQUISA POPULAR DOS SABERES SEMIÁRIDOS</div>
+            <div class="brand2">CIÊNCIAS SEMIÁRIDAS</div>
+            <div class="brand3">Somos sabedoria, não cicatrizes.</div>
+          </div>
+
+          <div class="titleBlock">
+            <div class="big">TRANSCRIÇÃO E DEMOCRATIZAÇÃO DO<br>ACERVO DA CASA DIOCLECIANO DANTAS —</div>
+            <div class="mid">CÂMARA MUNICIPAL DE <b>INAJÁ</b></div>
+            <div class="bar"></div>
+          </div>
+
+          <div class="docLine">
+            <span class="docLbl">DOCUMENTO:</span>
+            <span class="docVal">${escHtml(docTitulo(rec))}</span>
+          </div>
+
+          <div class="meta">${reviewBlock}</div>
+
+          ${cod ? `<div class="blk">${line("Codimagem", cod)}.</div>` : ""}
+
+          <div class="blk">
+            ${joinDot([
+              line("Tipo do Documento", tipo),
+              line("Numeração da Folha", folha),
+              line("Data", data),
+              line("Hora", hora),
+            ])}
+          </div>
+
+          <div class="blk">
+            ${joinDot([
+              line("Vereadores Presentes", presentes),
+              line("Vereadores Ausentes", ausentes),
+              line("Houve Quórum", quorum),
+            ])}
+          </div>
+
+          <hr class="sep"/>
+
+          <div class="blk">${line("Expediente do Dia (Detalhes e Folhas)", expFolhas)}</div>
+          <div class="blk">${line("Leis propostas e origem", leisProp)}</div>
+          <div class="blk">${line("Leis votadas e resultado", leisVot)}</div>
+          <div class="blk">${line("Proposições/Requerimentos", props)}</div>
+          <div class="blk">${line("Falas marcantes", falas)}</div>
+          <div class="blk">${line("Observações", obs)}</div>
+
+          <div class="pageNo">1</div>
+        </section>
+
+        <!-- PÁGINA 2 -->
+        <section class="page">
+          ${WM_DATA ? `<img class="wm" src="${WM_DATA}" alt="Marca d'água"/>` : ``}
+
+          <div class="topBrand">
+            <div class="brand1">INSTITUTO DE PESQUISA POPULAR DOS SABERES SEMIÁRIDOS</div>
+            <div class="brand2">CIÊNCIAS SEMIÁRIDAS</div>
+            <div class="brand3">Somos sabedoria, não cicatrizes.</div>
+          </div>
+
+          <div class="blk bigblk">${line("Curiosidades e Notas do Transcritor", curios)}</div>
+
+          <div class="subTitle">Transcrição Completa</div>
+          <div class="box">${trans ? escHtml(trans) : `<span class="muted">—</span>`}</div>
+
+          <div class="subTitle">Texto Revisado</div>
+          <div class="box">${revtxt ? escHtml(revtxt) : `<span class="muted">—</span>`}</div>
+
+          <div class="blk">${line("Tags / Palavras-chave", tags)}</div>
+
+          <div class="refTitle">Referência (ABNT - modelo)</div>
+          <div class="refBox">${escHtml(refAbnt || "")}</div>
+
+          <div class="muted" style="margin-top:14px">Revisões</div>
+
+          <div class="pageNo">2</div>
+        </section>
+
+        <!-- PÁGINA 3 (ANEXOS) -->
+        <section class="page">
+          ${WM_DATA ? `<img class="wm" src="${WM_DATA}" alt="Marca d'água"/>` : ``}
+
+          <div class="topBrand">
+            <div class="brand1">INSTITUTO DE PESQUISA POPULAR DOS SABERES SEMIÁRIDOS</div>
+            <div class="brand2">CIÊNCIAS SEMIÁRIDAS</div>
+            <div class="brand3">Somos sabedoria, não cicatrizes.</div>
+          </div>
+
+          <div class="refTitle">Anexos (imagens):</div>
+          <div class="hint2">(As imagens anexadas ao registro aparecem abaixo)</div>
+
+          <div class="anexosWrap">${anexosHtml}</div>
+
+          <div class="pageNo">3</div>
+        </section>
+      `;
+    }
+
+    return `
+      <!doctype html>
+      <html lang="pt-BR">
+      <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>${escHtml(title||"Relatório")}</title>
+        <style>
+          :root{
+            --bg:#ffffff;
+            --fg:#111111;
+            --mut:#4b5563;
+            --bar:#f97316;
+            --line:rgba(0,0,0,.18);
+            --box:rgba(0,0,0,.03);
+          }
+          html,body{background:var(--bg); color:var(--fg); margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+          .page{
+            position:relative;
+            padding:34px 38px;
+            min-height: 96vh;
+            page-break-after: always;
+            box-sizing:border-box;
+            overflow:hidden;
+          }
+
+          /* MARCA D’ÁGUA */
+          .wm{
+            position:absolute;
+            inset:0;
+            margin:auto;
+            width:min(520px, 70vw);
+            height:auto;
+            opacity:0.06;        /* bem esmaecido */
+            filter:grayscale(100%);
+            z-index:0;
+            pointer-events:none;
+          }
+
+          /* Conteúdo acima da marca d’água */
+          .topBrand,.titleBlock,.docLine,.meta,.blk,.sep,.subTitle,.box,.refTitle,.refBox,.hint2,.anexosWrap,.pageNo{
+            position:relative; z-index:1;
+          }
+
+          .topBrand{ text-align:center; margin-top:6px; }
+          .brand1{ font-weight:900; letter-spacing:.4px; font-size:14px; }
+          .brand2{ font-weight:800; font-size:14px; margin-top:2px;}
+          .brand3{ font-size:12px; color:var(--mut); margin-top:6px; }
+
+          .titleBlock{ margin-top:28px; }
+          .big{ font-weight:950; font-size:28px; line-height:1.06; letter-spacing:.2px; }
+          .mid{ font-size:18px; margin-top:10px; }
+          .bar{ height:4px; background:var(--bar); margin-top:18px; border-radius:99px; }
+
+          .docLine{ margin-top:22px; font-size:20px; }
+          .docLbl{ font-weight:950; }
+          .docVal{ font-weight:900; margin-left:8px; }
+
+          .meta{ margin-top:14px; font-size:13px; color:var(--mut); line-height:1.35; }
+          .dot{ opacity:.55; padding:0 6px; }
+          .lbl{ font-weight:900; color:var(--fg); }
+          .v{ color:var(--mut); font-weight:600; }
+          .warn{ color:#b91c1c; font-weight:950; }
+
+          .blk{ margin-top:16px; font-size:15px; line-height:1.45; }
+          .bigblk{ margin-top:24px; font-size:16px; }
+          .sep{ border:0; border-top:1px solid var(--line); margin:22px 0 8px; }
+
+          .subTitle{ margin-top:22px; font-weight:950; font-size:14px;}
+          .box{
+            margin-top:10px;
+            border:1px solid var(--line);
+            background:var(--box);
+            padding:14px;
+            border-radius:10px;
+            white-space:pre-wrap;
+            font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+            font-size:12px;
+            color:var(--fg);
+          }
+
+          .refTitle{ margin-top:24px; font-weight:950; font-size:16px; }
+          .refBox{ margin-top:8px; font-size:13px; color:var(--mut); }
+          .hint2{ margin-top:10px; color:var(--mut); font-size:13px; }
+
+          .anexosWrap{ margin-top:18px; display:flex; flex-direction:column; gap:14px; }
+          .anexo{ border:1px solid var(--line); background:var(--box); padding:12px; border-radius:12px; }
+          .anexoCap{ font-size:12px; color:var(--mut); margin-bottom:10px; }
+          .anexo img{ width:100%; height:auto; border-radius:10px; border:1px solid var(--line); }
+
+          .muted{ color:var(--mut); }
+          .pageNo{ position:absolute; right:20px; bottom:16px; color:var(--mut); font-size:12px; }
+
+          @media print{
+            .page{ min-height:auto; }
+          }
+        </style>
+      </head>
+      <body>${body}</body>
+      </html>
+    `;
+  }
+
+  // ====== SUGESTÃO INSERIDA: usar o modal de pré-visualização (iframe) se existir; senão baixa HTML ======
+  async function printRecords(records, title){
+    if(!records || !records.length){
+      alert("Nenhum registro para gerar PDF.");
+      return;
+    }
+
+    const html = await buildPdfHtmlForRecords(records, title);
+
+    const back = $("pdfBack");
+    const frame = $("pdfFrame");
+    const t = $("pdfTitle");
+    const btnClose = $("btnPdfClose");
+    const btnPrint = $("btnPdfPrint");
+
+    // Se o modal existe, abre nele (sem depender de download)
+    if(back && frame && t && btnClose && btnPrint){
+      t.textContent = title || "Pré-visualização do PDF";
+      back.style.display = "flex";
+      frame.srcdoc = html;
+
+      btnClose.onclick = () => {
+        back.style.display = "none";
+        frame.srcdoc = "";
+      };
+
+      btnPrint.onclick = () => {
+        try{
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+        }catch(e){
+          alert("Não consegui abrir a impressão. Tente: menu ⋮ do navegador → Imprimir.");
+        }
+      };
+
+      back.onclick = (e)=>{ if(e.target === back) btnClose.click(); };
+      return;
+    }
+
+    // Fallback: baixa HTML
+    try{
+      const blob = new Blob([html], {type:"text/html"});
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "RELATORIO_CMI_INAJA.html";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(()=>URL.revokeObjectURL(url), 1000);
+
+      alert("Relatório gerado. Abra o arquivo baixado e use ⋮ → Imprimir → Salvar como PDF.");
+    }catch(e){
+      alert("Erro ao gerar arquivo. Verifique permissões de download.");
+    }
+  }
+
+  async function pdfEncontroSelecionado(){
+    const db = loadDB();
+    if(!selectedEncontro){
+      alert("Selecione um encontro primeiro (no seletor Encontro).");
+      return;
+    }
+    const recs = passFilters(db.rows).filter(r => String(r["Título do Encontro"]||"").trim() === selectedEncontro);
+    await printRecords(recs, `Relatório do Encontro: ${selectedEncontro}`);
+  }
+
+  async function pdfTodos(){
+    const db = loadDB();
+    const recs = passFilters(db.rows); // respeita década/busca, mas NÃO força encontro
+    await printRecords(recs, `Relatório (filtros aplicados)`);
+  }
+
+  async function pdfRegistroAtual(){
+    if(!currentId){
+      alert("Nenhum registro aberto.");
+      return;
+    }
+    const db = loadDB();
+    const rec = db.rows.find(r=>Number(r._id)===Number(currentId));
+    if(!rec){
+      alert("Registro não encontrado.");
+      return;
+    }
+    await printRecords([rec], `Relatório do Registro ID ${rec._id}`);
+  }
+
+  // ====== EXPORT / IMPORT ======
+  function exportDb(){
+    const db = loadDB();
+    const blob = new Blob([JSON.stringify(db,null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `CMI_INAJA_BACKUP_${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 500);
+  }
+
+  async function importDbFromFile(file){
+    try{
+      const text = await file.text();
+      const incoming = JSON.parse(text);
+      if(!incoming || typeof incoming!=="object" || !Array.isArray(incoming.rows)){
+        alert("Backup inválido. Precisa ter { rows: [...] }.");
+        return;
+      }
+      const ok = confirm("Importar este backup irá SUBSTITUIR seu banco atual. Deseja continuar?");
+      if(!ok) return;
+      saveDB(incoming);
+      renderAll();
+      alert("Backup importado com sucesso.");
+    }catch(e){
+      alert("Erro ao importar backup. Arquivo inválido.");
+    }
+  }
+
+  function wipeAll(){
+    const ok = confirm("Apagar TUDO? Isso remove os registros do celular (não tem como desfazer).");
+    if(!ok) return;
+    localStorage.removeItem(DB_KEY);
+    renderAll();
+    alert("Apagado.");
+  }
+
+  // ====== EVENTOS UI ======
+  $("btnSaveJson").onclick = onSaveJson;
+  $("btnExportDb").onclick = exportDb;
+  $("btnImportDb").onclick = ()=> $("fileImport").click();
+  $("fileImport").onchange = async (e)=>{
+    const f = e.target.files && e.target.files[0];
+    if(f) await importDbFromFile(f);
+    e.target.value = "";
+  };
+  $("btnWipe").onclick = wipeAll;
+
+  $("btnClearSelected").onclick = resetSelectedImages;
+
+  $("fileImgs").onchange = async (e)=>{
+    await addFilesToSelection(e.target.files);
+  };
+
+  $("inTipo").onchange = ()=>{
+    const v = $("inTipo").value;
+    if(v === "Outros"){
+      // abre modal para especificar
+      openOutrosModal($("tipoOutrosHint").dataset.val || "", (val)=>{
+        $("tipoOutrosHint").style.display = val ? "block" : "none";
+        $("tipoOutrosHint").textContent = val ? `Outros: ${val}` : "";
+        $("tipoOutrosHint").dataset.val = val || "";
+      });
+    }
+  };
+
+  $("selEncontro").onchange = ()=>{
+    selectedEncontro = $("selEncontro").value || "";
+    renderAll();
+  };
+  $("inBusca").oninput = ()=>{
+    searchQuery = $("inBusca").value.trim();
+    renderAll();
+  };
+
+  $("btnPdf").onclick = pdfEncontroSelecionado;
+  $("btnPdfTodos").onclick = pdfTodos;
+
+  $("btnCloseModal").onclick = closeModal;
+  $("btnSaveEdit").onclick = saveEdit;
+  $("btnMarkReviewed").onclick = markReviewed;
+  $("btnDeleteRec").onclick = deleteRec;
+  $("btnPdfOne").onclick = pdfRegistroAtual;
+  $("btnPdfFromModal").onclick = async ()=>{
+    if(!selectedEncontro){
+      // tenta pegar do registro aberto
+      const db = loadDB();
+      const rec = db.rows.find(r=>Number(r._id)===Number(currentId));
+      const t = rec ? String(rec["Título do Encontro"]||"").trim() : "";
+      if(t){
+        selectedEncontro = t;
+        $("selEncontro").value = t;
+      }
+    }
+    await pdfEncontroSelecionado();
+  };
+
+  $("btnCloseOutros").onclick = closeOutrosModal;
+  $("btnCancelOutros").onclick = closeOutrosModal;
+  $("btnSaveOutros").onclick = ()=>{
+    if(!pendingOutrosTarget) return;
+    const val = $("txtOutros").value.trim();
+    pendingOutrosTarget.setterFn(val);
+    closeOutrosModal();
+  };
+
+  // Fecha modal clicando fora
+  $("modalBack").addEventListener("click", (e)=>{
+    if(e.target === $("modalBack")) closeModal();
+  });
+  $("modalOutrosBack").addEventListener("click", (e)=>{
+    if(e.target === $("modalOutrosBack")) closeOutrosModal();
+  });
+
+  // ====== INIT ======
+  resetSelectedImages();
+  renderAll();
+})();
+</script>
+
+<!-- MODAL PREVIEW PDF (sem popup) -->
+<div class="modalBack" id="pdfBack" style="display:none;align-items:flex-end">
+  <div class="modal" style="max-width:1100px">
+    <div class="modalHead">
+      <div>
+        <div class="h1" id="pdfTitle">Pré-visualização do PDF</div>
+        <div class="muted" style="font-size:12px">Toque em “Imprimir / Salvar PDF”.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+        <button class="primary" id="btnPdfPrint">Imprimir / Salvar PDF</button>
+        <button class="ghost" id="btnPdfClose">Fechar</button>
+      </div>
+    </div>
+    <div class="modalBody" style="padding:0">
+      <iframe id="pdfFrame" style="width:100%;height:78vh;border:0;border-bottom-left-radius:18px;border-bottom-right-radius:18px;"></iframe>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
