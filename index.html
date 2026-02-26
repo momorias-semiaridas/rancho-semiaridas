@@ -538,10 +538,16 @@ function salvarDados() {
 function abrirModulo(nome) {
   const n = String(nome || "").trim().toLowerCase();
 
-  // LEGISLATIVO: abre a página do Legislativo (onde ficará o botão do transcritor)
-  ifif (n === "legislativo" || n.includes("legisl")) {
-  window.location.href = "legislativo/index.html";
-  return;
+  if (n === "legislativo" || n.includes("legisl")) {
+    window.location.href = "legislativo/index.html";
+    return;
+  }
+
+  document.getElementById("modalTitulo").innerText = nome;
+
+  const formulario = ` ... seu formulário ... `;
+  document.getElementById("frame").srcdoc = formulario;
+  document.getElementById("modalIframe").style.display = "flex";
 }
   // Padrão: abre o formulário dentro do modal (como já era)
   document.getElementById("modalTitulo").innerText = nome;
